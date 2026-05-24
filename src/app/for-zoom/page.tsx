@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { ForZoomClient } from "./ForZoomClient";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { forZoomSchemas } from "@/lib/seo-schemas";
 
 export const metadata: Metadata = {
   title: "Pictionary Word Generator for Zoom – Free Virtual Game Night",
@@ -13,6 +15,7 @@ export const metadata: Metadata = {
 export default function ForZoomRoute() {
   return (
     <main>
+      <JsonLd data={forZoomSchemas} />
       <ForZoomClient />
     </main>
   );

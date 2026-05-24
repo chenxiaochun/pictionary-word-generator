@@ -1,0 +1,187 @@
+/* SEO landing pages — shared layout (replaces styled-jsx for reliability) */
+
+.seo-page {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 4rem;
+}
+
+.seo-page .seo-breadcrumb {
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+}
+
+.seo-page .seo-breadcrumb a {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.seo-page .seo-breadcrumb a:hover {
+  color: var(--accent);
+}
+
+.seo-page h1 {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.seo-page .seo-lead {
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin-bottom: 1.5rem;
+}
+
+.seo-page .seo-footer {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+/* Sections */
+.seo-section {
+  margin-top: 2.5rem;
+}
+
+.seo-section h2 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.seo-section ol,
+.seo-section ul {
+  color: var(--text-muted);
+  line-height: 1.75;
+  padding-left: 1.25rem;
+}
+
+.seo-section strong,
+.seo-section li {
+  color: var(--text);
+}
+
+.seo-section details {
+  background: var(--bg-card);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.seo-section summary {
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.seo-section p {
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Word list */
+.seo-word-list {
+  margin-top: 2.5rem;
+}
+
+.seo-word-list h2 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.seo-word-list .seo-word-list-intro {
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin-bottom: 0.5rem;
+}
+
+.seo-word-list .seo-word-list-count {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.seo-word-list .seo-category-block {
+  margin-bottom: 1.75rem;
+}
+
+.seo-word-list h3 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.seo-word-list .seo-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: rgba(255, 137, 6, 0.15);
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+}
+
+.seo-word-list ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.seo-word-list li {
+  font-size: 0.875rem;
+  padding: 0.35rem 0.75rem;
+  background: var(--bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 999px;
+  color: var(--text);
+}
+
+/* For Zoom page (standalone sections) */
+.seo-page section:not(.seo-section):not(.seo-word-list) {
+  margin-top: 2.5rem;
+}
+
+.seo-page section:not(.seo-section):not(.seo-word-list) h2 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.seo-page section:not(.seo-section):not(.seo-word-list) ol,
+.seo-page section:not(.seo-section):not(.seo-word-list) ul {
+  color: var(--text-muted);
+  line-height: 1.75;
+  padding-left: 1.25rem;
+}
+
+.seo-page section:not(.seo-section):not(.seo-word-list) ol strong,
+.seo-page section:not(.seo-section):not(.seo-word-list) ul li {
+  color: var(--text);
+}
+
+.seo-page .seo-faq details {
+  background: var(--bg-card);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.seo-page .seo-faq summary {
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.seo-page .seo-faq p {
+  margin-top: 0.75rem;
+  color: var(--text-muted);
+  font-size: 0.9375rem;
+}

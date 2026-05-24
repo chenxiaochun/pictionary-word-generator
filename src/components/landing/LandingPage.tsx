@@ -53,6 +53,61 @@ export function LandingPage() {
           ))}
         </section>
 
+        <section className="guides" aria-labelledby="guides-heading">
+          <h2 id="guides-heading">Guides &amp; Game Modes</h2>
+          <div className="guide-grid">
+            <a href="/for-zoom" className="guide-card">
+              <span className="guide-emoji">📹</span>
+              <h3>Pictionary for Zoom</h3>
+              <p>
+                Screen-share Theater Mode, virtual whiteboard tips, and remote
+                team setup.
+              </p>
+            </a>
+            <a href="/for-kids" className="guide-card">
+              <span className="guide-emoji">🧒</span>
+              <h3>Words for Kids</h3>
+              <p>
+                Kid-safe easy words, 90-second rounds, and classroom-friendly
+                categories.
+              </p>
+            </a>
+            <a href="/easy-pictionary-words" className="guide-card">
+              <span className="guide-emoji">✏️</span>
+              <h3>Easy Word List</h3>
+              <p>
+                Browse 150+ simple, drawable prompts — great for warm-ups and
+                beginners.
+              </p>
+            </a>
+          </div>
+        </section>
+
+        <section className="hosting-tips">
+          <h2>How to Host a Pictionary Game Night</h2>
+          <p>
+            Pictionary works best when one person acts as the <strong>host</strong>{" "}
+            and everyone else splits into two teams. The host runs this generator,
+            holds to reveal each word to the drawer, and keeps the timer fair. You
+            do not need the official board game — paper, a whiteboard, or a tablet
+            drawing app is enough.
+          </p>
+          <p>
+            For mixed skill groups, start with{" "}
+            <a href="/easy-pictionary-words">Easy mode</a> for the first few
+            rounds, then switch to Mixed. Playing remotely? Open our{" "}
+            <a href="/for-zoom">Zoom guide</a> and share Theater Mode so the whole
+            group sees the countdown. With kids, use the{" "}
+            <a href="/for-kids">kids word list</a> and a 90-second timer so
+            younger artists have time to finish their drawing.
+          </p>
+          <p>
+            Pick a category — Animals, Food, or Actions — for themed rounds at
+            parties. Our session engine ensures no word repeats until you start a
+            fresh game, so marathon game nights stay fun without repeats.
+          </p>
+        </section>
+
         <section id="how-to-play" className="how-to">
           <h2>How to Play</h2>
           <ol>
@@ -93,6 +148,22 @@ export function LandingPage() {
               Yes. Use Theater Mode to share your screen, or hold your phone so
               only the drawer sees the word. See our{" "}
               <a href="/for-zoom">Pictionary for Zoom guide</a>.
+            </p>
+          </details>
+          <details>
+            <summary>Is this good for kids?</summary>
+            <p>
+              Yes. Use Easy mode and our{" "}
+              <a href="/for-kids">Pictionary for kids page</a> for kid-friendly
+              words and a longer timer.
+            </p>
+          </details>
+          <details>
+            <summary>Where can I get easy words only?</summary>
+            <p>
+              Try our{" "}
+              <a href="/easy-pictionary-words">easy Pictionary words generator</a>{" "}
+              — simple, drawable prompts with no repeats per session.
             </p>
           </details>
           <details>
@@ -176,6 +247,64 @@ export function LandingPage() {
           color: var(--text-muted);
           font-size: 0.9375rem;
         }
+        .guides,
+        .hosting-tips {
+          margin-bottom: 3rem;
+        }
+        .guides h2,
+        .hosting-tips h2 {
+          font-family: var(--font-display);
+          margin-bottom: 1rem;
+        }
+        .guide-grid {
+          display: grid;
+          gap: 1rem;
+        }
+        .guide-card {
+          display: block;
+          background: var(--bg-card);
+          border-radius: var(--radius);
+          padding: 1.25rem;
+          border: 1px solid rgba(255, 255, 255, 0.06);
+          text-decoration: none;
+          color: inherit;
+          transition: border-color 0.15s;
+        }
+        .guide-card:hover {
+          border-color: var(--accent);
+        }
+        .guide-emoji {
+          font-size: 1.5rem;
+          display: block;
+          margin-bottom: 0.5rem;
+        }
+        .guide-card h3 {
+          font-family: var(--font-display);
+          font-size: 1rem;
+          margin-bottom: 0.35rem;
+        }
+        .guide-card p {
+          color: var(--text-muted);
+          font-size: 0.875rem;
+          line-height: 1.5;
+        }
+        .hosting-tips p {
+          color: var(--text-muted);
+          line-height: 1.75;
+          margin-bottom: 1rem;
+          font-size: 0.9375rem;
+        }
+        .hosting-tips strong,
+        .hosting-tips a {
+          color: var(--text);
+        }
+        .hosting-tips a {
+          text-decoration: underline;
+          text-underline-offset: 2px;
+        }
+        .hosting-tips a:hover {
+          color: var(--accent);
+        }
         .how-to,
         .faq {
           margin-bottom: 3rem;
@@ -219,6 +348,9 @@ export function LandingPage() {
         }
         @media (min-width: 640px) {
           .value-props {
+            grid-template-columns: repeat(3, 1fr);
+          }
+          .guide-grid {
             grid-template-columns: repeat(3, 1fr);
           }
         }

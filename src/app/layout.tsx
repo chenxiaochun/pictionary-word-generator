@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "@/styles/seo-pages.css";
 
 export const metadata: Metadata = {
   title: "Pictionary Word Generator with Timer – Free Game Host Tool",

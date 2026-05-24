@@ -9,14 +9,14 @@ export function ForZoomPage() {
 
   return (
     <>
-      <article className="page">
-        <nav className="breadcrumb">
+      <article className="seo-page">
+        <nav className="seo-breadcrumb">
           <Link href="/">← Pictionary Word Generator</Link>
         </nav>
 
         <header>
           <h1>Pictionary Word Generator for Zoom</h1>
-          <p className="lead">
+          <p className="seo-lead">
             Host virtual Pictionary on Zoom, Google Meet, or Discord — free word
             generator with built-in timer, peek-proof reveal, and zero repeats.
           </p>
@@ -61,7 +61,7 @@ export function ForZoomPage() {
           </ul>
         </section>
 
-        <section className="faq">
+        <section className="seo-faq">
           <h2>FAQ</h2>
           <details>
             <summary>Do I need to download anything for Zoom Pictionary?</summary>
@@ -87,7 +87,7 @@ export function ForZoomPage() {
           </details>
         </section>
 
-        <footer>
+        <footer className="seo-footer">
           <button
             type="button"
             className="btn-primary"
@@ -104,74 +104,6 @@ export function ForZoomPage() {
           onComplete={() => setShowSetup(false)}
         />
       )}
-
-      <style jsx>{`
-        .page {
-          max-width: 680px;
-          margin: 0 auto;
-          padding: 2rem 1.25rem 4rem;
-        }
-        .breadcrumb {
-          margin-bottom: 1.5rem;
-          font-size: 0.875rem;
-        }
-        .breadcrumb a {
-          color: var(--text-muted);
-          text-decoration: none;
-        }
-        .breadcrumb a:hover {
-          color: var(--accent);
-        }
-        h1 {
-          font-family: var(--font-display);
-          font-size: clamp(1.5rem, 4vw, 2.25rem);
-          line-height: 1.2;
-          margin-bottom: 1rem;
-        }
-        .lead {
-          color: var(--text-muted);
-          line-height: 1.65;
-          margin-bottom: 1.5rem;
-        }
-        section {
-          margin-top: 2.5rem;
-        }
-        h2 {
-          font-family: var(--font-display);
-          font-size: 1.25rem;
-          margin-bottom: 1rem;
-        }
-        ol,
-        ul {
-          color: var(--text-muted);
-          line-height: 1.75;
-          padding-left: 1.25rem;
-        }
-        ol strong,
-        ul li {
-          color: var(--text);
-        }
-        .faq details {
-          background: var(--bg-card);
-          border-radius: 12px;
-          padding: 1rem;
-          margin-bottom: 0.5rem;
-          border: 1px solid rgba(255, 255, 255, 0.06);
-        }
-        .faq summary {
-          font-weight: 600;
-          cursor: pointer;
-        }
-        .faq p {
-          margin-top: 0.75rem;
-          color: var(--text-muted);
-          font-size: 0.9375rem;
-        }
-        footer {
-          margin-top: 3rem;
-          text-align: center;
-        }
-      `}</style>
     </>
   );
 }

@@ -1,16 +1,12 @@
-"use client";
-
-import { LandingPage } from "@/components/landing/LandingPage";
-import { GameApp } from "@/components/game/GameApp";
-import { useGameStore } from "@/store/game-store";
+import { HomeClient } from "./HomeClient";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { homeSchemas } from "@/lib/seo-schemas";
 
 export default function HomePage() {
-  const phase = useGameStore((s) => s.session.phase);
-  const inGame = phase !== "setup";
-
   return (
     <main>
-      {inGame ? <GameApp /> : <LandingPage />}
+      <JsonLd data={homeSchemas} />
+      <HomeClient />
     </main>
   );
 }

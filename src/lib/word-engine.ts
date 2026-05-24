@@ -68,6 +68,20 @@ export function getCategoryLabel(category: Word["category"] | "all"): string {
   return labels[category];
 }
 
+export const CATEGORY_OPTIONS: {
+  value: Word["category"] | "all";
+  label: string;
+  emoji: string;
+}[] = [
+  { value: "all", label: "All", emoji: "🎲" },
+  { value: "animals", label: "Animals", emoji: "🐾" },
+  { value: "food", label: "Food", emoji: "🍕" },
+  { value: "actions", label: "Actions", emoji: "🏃" },
+  { value: "objects", label: "Objects", emoji: "📦" },
+  { value: "places", label: "Places", emoji: "🗺️" },
+  { value: "abstract", label: "Abstract", emoji: "💭" },
+];
+
 export function getDifficultyLabel(preset: DifficultyPreset): string {
   return preset.charAt(0).toUpperCase() + preset.slice(1);
 }

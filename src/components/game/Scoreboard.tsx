@@ -3,7 +3,11 @@
 import { useEffect, useRef } from "react";
 import { useGameStore } from "@/store/game-store";
 
-export function Scoreboard() {
+interface ScoreboardProps {
+  compact?: boolean;
+}
+
+export function Scoreboard({ compact = false }: ScoreboardProps) {
   const teams = useGameStore((s) => s.session.teams);
   const phase = useGameStore((s) => s.session.phase);
   const scoreARef = useRef<HTMLSpanElement>(null);
@@ -24,6 +28,48 @@ export function Scoreboard() {
     }
     prevScores.current = { a: teams[0].score, b: teams[1].score };
   }, [teams, phase]);
+
+  if (compact) {
+    return (
+      <div className="scoreboard-compact">
+        <span>
+          {teams[0].emoji}{" "}
+          <span ref={scoreARef} className="score">
+            {teams[0].score}
+          </span>
+        </span>
+        <span className="dash">—</span>
+        <span>
+          <span ref={scoreBRef} className="score">
+            {teams[1].score}
+          </span>{" "}
+          {teams[1].emoji}
+        </span>
+        <style jsx>{`
+          .scoreboard-compact {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 800;
+            padding: 0.5rem;
+          }
+          .score {
+            display: inline-block;
+          }
+          :global(.score.pop) {
+            animation: bounce-score 0.45s ease;
+          }
+          .dash {
+            color: var(--text-muted);
+            font-weight: 600;
+          }
+        `}</style>
+      </div>
+    );
+  }
 
   return (
     <div className="scoreboard">

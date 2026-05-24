@@ -7,21 +7,31 @@ import type {
   DifficultyPreset,
   TimerSeconds,
   WinScore,
+  WordCategory,
 } from "@/types/game";
 import { DEFAULT_SETTINGS, DEFAULT_TEAMS } from "@/types/game";
 import { useGameStore } from "@/store/game-store";
+import { CATEGORY_OPTIONS, getCategoryLabel } from "@/lib/word-engine";
 
 interface SetupModalProps {
   onClose: () => void;
   onComplete: () => void;
+  initialSettings?: Partial<GameSettings>;
 }
 
-export function SetupModal({ onClose, onComplete }: SetupModalProps) {
+export function SetupModal({
+  onClose,
+  onComplete,
+  initialSettings,
+}: SetupModalProps) {
   const dispatch = useGameStore((s) => s.dispatch);
   const [teams, setTeams] = useState<[Team, Team]>(
     DEFAULT_TEAMS.map((t) => ({ ...t })) as [Team, Team]
   );
-  const [settings, setSettings] = useState<GameSettings>({ ...DEFAULT_SETTINGS });
+  const [settings, setSettings] = useState<GameSettings>({
+    ...DEFAULT_SETTINGS,
+    ...initialSettings,
+  });
 
   const updateTeam = (id: Team["id"], patch: Partial<Team>) => {
     setTeams((prev) =>
@@ -65,6 +75,29 @@ export function SetupModal({ onClose, onComplete }: SetupModalProps) {
                   placeholder={team.id === "A" ? "Team Foxes" : "Team Octos"}
                 />
               </label>
+            ))}
+          </div>
+        </section>
+
+        <section>
+          <h3>Category</h3>
+          <div className="pill-group category-group">
+            {CATEGORY_OPTIONS.map(({ value, label, emoji }) => (
+              <button
+                key={value}
+                type="button"
+                className={
+                  settings.category === value ? "pill active" : "pill"
+                }
+                onClick={() =>
+                  setSettings((s) => ({
+                    ...s,
+                    category: value as WordCategory | "all",
+                  }))
+                }
+              >
+                {emoji} {label}
+              </button>
             ))}
           </div>
         </section>
@@ -123,8 +156,8 @@ export function SetupModal({ onClose, onComplete }: SetupModalProps) {
 
         <p className="summary">
           {teams[0].emoji} {teams[0].name} vs {teams[1].name} {teams[1].emoji} ·{" "}
-          {settings.difficulty} · {settings.timerSeconds}s · First to{" "}
-          {settings.winScore}
+          {getCategoryLabel(settings.category)} · {settings.difficulty} ·{" "}
+          {settings.timerSeconds}s · First to {settings.winScore}
         </p>
 
         <button type="button" className="btn-primary full" onClick={handleStart}>
@@ -214,6 +247,9 @@ export function SetupModal({ onClose, onComplete }: SetupModalProps) {
           display: flex;
           flex-wrap: wrap;
           gap: 0.5rem;
+        }
+        .category-group .pill {
+          font-size: 0.8125rem;
         }
         .pill {
           padding: 0.5rem 1rem;
