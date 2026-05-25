@@ -61,7 +61,16 @@ All transitions live in `src/lib/game-state-machine.ts`.
 
 - **Primary:** `pictionary word generator`
 - **Breakthrough long-tail:** `pictionary word generator with timer`
-- **Phase 2 pages:** `/for-zoom`, `/for-kids`, `/easy-pictionary-words`
+- **Landing pages:** `/for-zoom`, `/for-kids`, `/easy-pictionary-words`
+
+## Launch (获客)
+
+1. Copy `.env.example` → set `NEXT_PUBLIC_SITE_URL` on Vercel (Production).
+2. Deploy via [Vercel](https://vercel.com/new) (import this GitHub repo).
+3. Redeploy after env vars change so sitemap / JSON-LD use the real domain.
+4. Follow **[docs/launch.md](docs/launch.md)** for Google Search Console and post-deploy checks.
+
+OG image: auto-generated at `/opengraph-image` (see `src/app/opengraph-image.tsx`).
 
 ## MVP checklist
 
@@ -73,9 +82,11 @@ All transitions live in `src/lib/game-state-machine.ts`.
 - [x] Landing FAQ for SEO
 - [x] Sound effects (Web Audio — ding, buzzer, cheer, tick)
 - [x] `/for-zoom` SEO landing page
-- [x] sitemap.xml + robots.txt
-- [ ] Deploy to Vercel + GSC
+- [x] sitemap.xml + robots.txt + OG image + `metadataBase`
+- [ ] Deploy to Vercel + set `NEXT_PUBLIC_SITE_URL`
+- [ ] Google Search Console sitemap + indexing
 
 ## Docs
 
-Full UI copy for every screen: [`docs/wireframes-ui-copy.md`](docs/wireframes-ui-copy.md)
+Full UI copy for every screen: [`docs/wireframes-ui-copy.md`](docs/wireframes-ui-copy.md)  
+Launch checklist (中文): [`docs/launch.md`](docs/launch.md)

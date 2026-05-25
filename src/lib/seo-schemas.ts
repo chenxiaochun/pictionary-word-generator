@@ -1,5 +1,6 @@
-const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com";
+import { getSiteUrl } from "@/lib/site";
+
+const SITE_URL = getSiteUrl();
 
 type FaqItem = { question: string; answer: string };
 
