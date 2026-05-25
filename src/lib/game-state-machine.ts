@@ -253,8 +253,22 @@ export function gameReducer(
     case "END_GAME":
       return { ...session, phase: "game_over" };
 
-    case "PLAY_AGAIN":
-      return createInitialSession();
+    case "PLAY_AGAIN": {
+      const teams = session.teams.map((t) => ({
+        ...t,
+        score: 0,
+      })) as [Team, Team];
+      let next: GameSession = {
+        ...createInitialSession(),
+        id: createSessionId(),
+        createdAt: Date.now(),
+        teams,
+        settings: { ...session.settings },
+        phase: "idle",
+        theaterMode: false,
+      };
+      return advanceWord(next);
+    }
 
     case "RESHUFFLE_WORDS": {
       let next: GameSession = {

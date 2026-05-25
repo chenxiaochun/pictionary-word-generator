@@ -1,35 +1,85 @@
 "use client";
 
-import { useState } from "react";
-import { useGameStore } from "@/store/game-store";
+import { useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import type { GameSettings } from "@/types/game";
 import { SetupModal } from "@/components/setup/SetupModal";
+import { QuickWordPlayground } from "@/components/landing/QuickWordPlayground";
+import { settingsFromSearchParams } from "@/lib/game-url";
+import { buildInviteShareText, shareText } from "@/lib/share";
+import { buildPlayUrl } from "@/lib/game-url";
 
 export function LandingPage() {
+  const searchParams = useSearchParams();
+  const urlSettings = useMemo(
+    () => settingsFromSearchParams(searchParams),
+    [searchParams]
+  );
   const [showSetup, setShowSetup] = useState(false);
+  const [setupSettings, setSetupSettings] = useState<Partial<GameSettings>>({});
+  const [inviteFeedback, setInviteFeedback] = useState<string | null>(null);
+
+  const openSetup = (initial?: Partial<GameSettings>) => {
+    setSetupSettings({ ...urlSettings, ...initial });
+    setShowSetup(true);
+  };
+
+  const copyPartyLink = async () => {
+    const text = buildInviteShareText(urlSettings);
+    const result = await shareText({
+      title: "Pictionary game night",
+      text,
+      url: buildPlayUrl(urlSettings),
+    });
+    setInviteFeedback(
+      result === "copied" || result === "shared"
+        ? "Party link ready — send it to your group!"
+        : "Could not copy link"
+    );
+    setTimeout(() => setInviteFeedback(null), 2500);
+  };
 
   return (
     <>
       <article className="landing">
         <header className="landing-hero">
+          <p className="hero-badge">Free · No signup · 500+ words</p>
           <h1>Pictionary Word Generator with Timer</h1>
           <p className="subtitle">
-            Host the perfect drawing game. Peek-proof words, auto timer, zero
-            repeats — free, no signup.
+            Other sites give you a word. <strong>We host the whole game</strong>{" "}
+            — peek-proof reveal, auto timer, teams, and zero repeats all night.
           </p>
           <div className="cta-row">
             <button
               type="button"
               className="btn-primary"
-              onClick={() => setShowSetup(true)}
+              onClick={() => openSetup()}
             >
               Start a Game
             </button>
-            <a href="#how-to-play" className="btn-secondary">
-              How to Play
+            <a href="#try-word" className="btn-secondary">
+              Try a word
             </a>
           </div>
-          <p className="trust">Free forever · Works on phone &amp; TV · 500+ words</p>
+          <p className="trust">
+            Built for parties, Zoom nights &amp; classrooms
+          </p>
         </header>
+
+        <div id="try-word">
+          <QuickWordPlayground onHostGame={(s) => openSetup(s)} />
+        </div>
+
+        <section className="versus" aria-label="Why we're different">
+          <div className="versus-card them">
+            <span className="versus-label">Typical generator</span>
+            <p>One random word · copy &amp; paste · you run the clock</p>
+          </div>
+          <div className="versus-card us">
+            <span className="versus-label">Pictionary Host</span>
+            <p>Hold to reveal · auto timer · teams &amp; scores · no repeats</p>
+          </div>
+        </section>
 
         <section className="value-props" aria-label="Features">
           {[
@@ -177,13 +227,31 @@ export function LandingPage() {
 
         <footer className="landing-footer">
           <h2>Ready to host?</h2>
-          <button
-            type="button"
-            className="btn-primary"
-            onClick={() => setShowSetup(true)}
-          >
-            Start a Game — It&apos;s Free
-          </button>
+          <p className="footer-lead">
+            Send one link — friends open it and you&apos;re one tap from game
+            night.
+          </p>
+          {inviteFeedback && (
+            <p className="invite-feedback" role="status">
+              {inviteFeedback}
+            </p>
+          )}
+          <div className="footer-actions">
+            <button
+              type="button"
+              className="btn-primary"
+              onClick={() => openSetup()}
+            >
+              Start a Game — It&apos;s Free
+            </button>
+            <button
+              type="button"
+              className="btn-secondary"
+              onClick={copyPartyLink}
+            >
+              Copy party invite link
+            </button>
+          </div>
         </footer>
       </article>
 
@@ -191,6 +259,7 @@ export function LandingPage() {
         <SetupModal
           onClose={() => setShowSetup(false)}
           onComplete={() => setShowSetup(false)}
+          initialSettings={setupSettings}
         />
       )}
 
@@ -202,7 +271,22 @@ export function LandingPage() {
         }
         .landing-hero {
           text-align: center;
-          padding: 2rem 0 3rem;
+          padding: 2rem 0 2rem;
+        }
+        .hero-badge {
+          display: inline-block;
+          font-size: 0.75rem;
+          font-weight: 700;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          color: var(--accent);
+          background: rgba(255, 137, 6, 0.12);
+          padding: 0.35rem 0.75rem;
+          border-radius: 999px;
+          margin-bottom: 1rem;
+        }
+        .subtitle strong {
+          color: var(--text);
         }
         h1 {
           font-family: var(--font-display);
@@ -227,6 +311,40 @@ export function LandingPage() {
         .trust {
           font-size: 0.875rem;
           color: var(--text-muted);
+        }
+        .versus {
+          display: grid;
+          gap: 0.75rem;
+          margin-bottom: 3rem;
+        }
+        .versus-card {
+          padding: 1rem 1.25rem;
+          border-radius: var(--radius);
+          border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .versus-card.them {
+          background: var(--bg-card);
+          opacity: 0.85;
+        }
+        .versus-card.us {
+          background: rgba(127, 90, 240, 0.12);
+          border-color: rgba(127, 90, 240, 0.35);
+        }
+        .versus-label {
+          display: block;
+          font-size: 0.6875rem;
+          font-weight: 700;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          color: var(--text-muted);
+          margin-bottom: 0.35rem;
+        }
+        .versus-card.us .versus-label {
+          color: var(--accent);
+        }
+        .versus-card p {
+          font-size: 0.9375rem;
+          line-height: 1.5;
         }
         .value-props {
           display: grid;
@@ -344,14 +462,38 @@ export function LandingPage() {
         }
         .landing-footer h2 {
           font-family: var(--font-display);
+          margin-bottom: 0.5rem;
+        }
+        .footer-lead {
+          color: var(--text-muted);
+          font-size: 0.9375rem;
           margin-bottom: 1rem;
         }
+        .invite-feedback {
+          color: var(--team-b);
+          font-weight: 600;
+          font-size: 0.875rem;
+          margin-bottom: 0.75rem;
+        }
+        .footer-actions {
+          display: flex;
+          flex-direction: column;
+          gap: 0.75rem;
+          align-items: center;
+        }
         @media (min-width: 640px) {
+          .versus {
+            grid-template-columns: 1fr 1fr;
+          }
           .value-props {
             grid-template-columns: repeat(3, 1fr);
           }
           .guide-grid {
             grid-template-columns: repeat(3, 1fr);
+          }
+          .footer-actions {
+            flex-direction: row;
+            justify-content: center;
           }
         }
       `}</style>
